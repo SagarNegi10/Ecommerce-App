@@ -12,9 +12,6 @@ const userSchema = new mongoose.Schema({
     },
     cartData: {
         type: Object, default: {}
-    },
-    date: {
-        type: Number, required: true
     }
 },{minimize: false})
 
