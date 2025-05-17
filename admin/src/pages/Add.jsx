@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import axios from 'axios'
 import { backendUrl } from '../App'
+import { toast } from 'react-toastify'
 
 const Add = ({token}) => {
 
@@ -15,7 +16,7 @@ const Add = ({token}) => {
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('Men')
   const [subCategory, setSubCategory] = useState('Topwear')
-  const [bestseller, setBestseller] = useState(false)
+  const [bestSeller, setBestSeller] = useState(false)
   const [sizes, setSizes] = useState([])
 
   const onSubmitHandler = async (e)=>{
@@ -29,7 +30,7 @@ const Add = ({token}) => {
       formData.append("price",price)
       formData.append("category",category)
       formData.append("subCategory",subCategory)
-      formData.append("bestseller",bestseller)
+      formData.append("bestSeller", bestSeller ? "true" : "false")
       formData.append("sizes",JSON.stringify(sizes))
 
       image1 && formData.append("image1",image1)
@@ -38,11 +39,23 @@ const Add = ({token}) => {
       image4 && formData.append("image4",image4)
 
       const response = await axios.post(backendUrl + '/api/product/add', formData,{headers: {token}})
-      console.log(response.data);
+      if (response.data.success) {
+        toast.success(response.data.message)
+        setName('')
+        setDescription('')
+        setImage1(false)
+        setImage2(false)
+        setImage3(false)
+        setImage4(false)
+        setPrice('')
+      }
+      else{
+        toast.error(response.data.message)
+      }
       
-
     } catch (error) {
       console.log(error);
+      toast.error(error.message)
     }
   }
 
@@ -130,7 +143,7 @@ const Add = ({token}) => {
       </div>
 
       <div className='flex gap-2 mt-2'>
-        <input onChange={()=>setBestseller(prev => !prev)} checked={bestseller} type="checkbox" id='bestseller' />
+        <input onChange={()=>setBestSeller(prev => !prev)} checked={bestSeller} type="checkbox" id='bestseller' />
         <label className='cursor-pointer' htmlFor="bestseller">Add to bestseller</label>
       </div>
 
