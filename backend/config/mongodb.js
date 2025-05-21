@@ -7,7 +7,7 @@ const connectDB  = async () =>{
         
     })
 
-    await mongoose.connect(`${process.env.MONGODB_URI}/Forever`)
+    await mongoose.connect(`${process.env.MONGODB_URI}/FitBae`)
 
 }
 
