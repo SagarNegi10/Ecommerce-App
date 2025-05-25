@@ -27,7 +27,6 @@ const Navbar = () => {
     setDropdownOpen(false);
   };
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -42,6 +41,17 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (visible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [visible]);
 
   return (
     <div className="flex items-center justify-between py-5 font-medium relative">
@@ -138,12 +148,24 @@ const Navbar = () => {
       </div>
 
       {/* Sidebar menu for small screens */}
+      {/* Transparent Backdrop */}
+      {visible && (
+        <div
+          className="fixed inset-0 z-40 sm:hidden"
+          style={{ background: 'transparent' }}
+          onClick={() => setVisible(false)}
+        />
+      )}
+      {/* Sidebar */}
       <div
-        className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${
-          visible ? 'w-full' : 'w-0'
-        }`}
+        className={`
+          fixed top-0 right-0 h-full z-50 bg-white transition-transform duration-300 sm:hidden
+          ${visible ? 'translate-x-0' : 'translate-x-full'}
+          w-64
+        `}
+        style={{ maxWidth: '80vw' }}
       >
-        <div className="flex flex-col text-gray-600">
+        <div className="flex flex-col text-gray-600 h-full">
           <div
             onClick={() => setVisible(false)}
             className="flex items-center gap-4 p-3 cursor-pointer"
