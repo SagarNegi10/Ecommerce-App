@@ -1,6 +1,6 @@
 
-# ![FitBae Logo](./frontend/src/assets/fevicon.png)
-**FitBae** – Fashion-Forward Clothing E-commerce Platform
+<img src="./frontend/src/assets/fevicon.png" alt="FitBae Logo" width="100" height="100">
+# **FitBae** – Fashion-Forward Clothing E-commerce Platform
 
 **FitBae** is a sleek, responsive, and full-featured clothing e-commerce web application built with the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It delivers a smooth user experience for browsing, purchasing, and managing fashion products. With secure **Stripe payments**, personalized user accounts, and an intuitive admin dashboard, FitBae is tailored to meet the needs of both online shoppers and store owners alike.
 
